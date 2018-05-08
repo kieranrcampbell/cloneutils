@@ -42,3 +42,17 @@ plot_pr <- function(df_pr) {
     labs(x = "Quantile highly variable genes", y = "Measure value")
 }
 
+#' Subset a SingleCellExperiment to have genes with a predicted dosage effect
+#' 
+#' The SingleCellExperiment should have \code{Symbol} in rowData
+#' dosage df should at least have columns "gene" and "q.value"
+#' 
+#' The returned SingleCellExperiment contains only genes whose
+#' q.value is less than 0.05
+#' 
+#' @export
+dosage_subset_sce <- function(sce, dosage_df, threshold = 0.05) {
+  genes_to_subset <- dplyr::filter(dosage_df, q.value < threshold)$gene
+  sce[rowData(sce)$Symbol %in% genes_to_subset]
+}
+

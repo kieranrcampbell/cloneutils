@@ -2,4 +2,5 @@
 
 export(compute_cal_fits)
 export(construct_pr_df)
+export(dosage_subset_sce)
 export(plot_pr)
